@@ -29,6 +29,7 @@ public class SingleFileExecutionConfig implements PersistentStateComponent<Singl
     public String runtimeOutputDirectory = "";   // set empty string as default, persistent member should be public
     private static final boolean DEFAULT_NOT_SHOW_OVERWRITE_CONFIRM_DIALOG = false;
     public boolean notShowOverwriteConfirmDialog = DEFAULT_NOT_SHOW_OVERWRITE_CONFIRM_DIALOG;  // persistent member should be public
+    public boolean automaticallySwitch = true;
 
     SingleFileExecutionConfig() { }
 

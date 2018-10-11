@@ -1,10 +1,12 @@
 <idea-plugin version="2">
-  <id>com.corochann.plugin.clion.singlefileexecutionplugin</id>
+  <id>xyz.paphonb.plugin.clion.singlefileexecutionplugin</id>
   <name>C/C++ Single File Execution</name>
-  <version>1.3</version>
-  <vendor email="corochannz@gmail.com" url="http://corochann.com">corochann</vendor>
+  <version>1.4</version>
+  <vendor email="paphonb@gmail.com" url="https://paphonb.xyz">paphonb</vendor>
 
   <description><![CDATA[
+      This is a fork of corochann's <a href="https://github.com/corochann/SingleFileExecutionPlugin">SingleFileExecutionPlugin</a></li>
+      <br/><br/>
       When you want to build and run single c/cpp file in CLion, <code>CMakeLists.txt</code> needs to be configured
       to declare <code>add_executable()</code>.
       It is troublesome when you want to run many of the files independently within the same project.<br>
@@ -13,12 +15,12 @@
       Also, you can specify a location of directory for build executable file for each target.<br/>
       Links:<br/>
        <ul>
-       <li><a href="http://corochann.com/projects/single-file-execution-plugin">Document page</a></li>
-       <li><a href="https://github.com/corochann/SingleFileExecutionPlugin">github page</a></li>
+       <li><a href="https://github.com/paphonb/SingleFileExecutionPlugin">github page</a></li>
        </ul>
     ]]></description>
 
   <change-notes><![CDATA[
+      <p>version 1.4: Automatically add executable on tab switch</p>
       <p>version 1.3: Bug fix for config. - Settings was not saved persistently</p>
       <p>version 1.2:</p>
       <ul>
@@ -53,6 +55,15 @@
       <add-to-group group-id="EditorPopupMenu"/>
       <keyboard-shortcut keymap="$default" first-keystroke="shift ctrl alt E"/>
     </action>
+
+    <action id="AutoSingleFileExecutionAction" class="AutoSingleFileExecutionAction" text="Add executable for single c/cpp file"
+            description="Adding add_executable() to CMakeLists.txt" />
   </actions>
+
+  <application-components>
+    <component>
+      <implementation-class>ActiveTabExecutableComponent</implementation-class>
+    </component>
+  </application-components>
 
 </idea-plugin>

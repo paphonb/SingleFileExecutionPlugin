@@ -17,6 +17,7 @@ public class SingleFileExecutionConfigurableGUI {
     private JPanel outputPathSetting;
     private JPanel exeNameSetting;
     private JTextField runtimeOutputDirectoryTextField;
+    private JCheckBox automaticallySwitchCheckBox;
     private SingleFileExecutionConfig mConfig;
 
     SingleFileExecutionConfigurableGUI() {
@@ -28,6 +29,7 @@ public class SingleFileExecutionConfigurableGUI {
         exeNameTextField.setText(mConfig.getExecutableName());
         runtimeOutputDirectoryTextField.setText(mConfig.getRuntimeOutputDirectory());
         notShowDialogCheckBox.setSelected(mConfig.notShowOverwriteConfirmDialog);
+        automaticallySwitchCheckBox.setSelected(mConfig.automaticallySwitch);
     }
 
     public JPanel getRootPanel() {
@@ -43,6 +45,7 @@ public class SingleFileExecutionConfigurableGUI {
         modified |= !exeNameTextField.getText().equals(mConfig.getExecutableName());
         modified |= !runtimeOutputDirectoryTextField.getText().equals(mConfig.getRuntimeOutputDirectory());
         modified |= !notShowDialogCheckBox.isSelected() == mConfig.notShowOverwriteConfirmDialog;
+        modified |= !automaticallySwitchCheckBox.isSelected() == mConfig.automaticallySwitch;
         return modified;
     }
 
@@ -50,12 +53,14 @@ public class SingleFileExecutionConfigurableGUI {
         mConfig.setExecutableName(exeNameTextField.getText());
         mConfig.setRuntimeOutputDirectory(runtimeOutputDirectoryTextField.getText());
         mConfig.notShowOverwriteConfirmDialog = notShowDialogCheckBox.isSelected();
+        mConfig.automaticallySwitch = automaticallySwitchCheckBox.isSelected();
     }
 
     public void reset() {
         exeNameTextField.setText(mConfig.getExecutableName());
         runtimeOutputDirectoryTextField.setText(mConfig.getRuntimeOutputDirectory());
         notShowDialogCheckBox.setSelected(mConfig.notShowOverwriteConfirmDialog);
+        automaticallySwitchCheckBox.setSelected(mConfig.automaticallySwitch);
     }
 
     {
