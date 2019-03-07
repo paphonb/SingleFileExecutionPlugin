@@ -6,9 +6,13 @@ public class AutoSingleFileExecutionAction extends SingleFileExecutionAction {
 
     @Override
     public void actionPerformed(AnActionEvent e) {
-        Project project = e.getRequiredData(CommonDataKeys.PROJECT);
-        SingleFileExecutionConfig config = SingleFileExecutionConfig.getInstance(project);
-        if (config.automaticallySwitch)
-            super.actionPerformed(e);
+        try {
+            Project project = e.getRequiredData(CommonDataKeys.PROJECT);
+            SingleFileExecutionConfig config = SingleFileExecutionConfig.getInstance(project);
+            if (config.automaticallySwitch)
+                super.actionPerformed(e);
+        } catch (AssertionError ignored) {
+
+        }
     }
 }

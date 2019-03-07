@@ -32,7 +32,20 @@ public class ActiveTabExecutableComponent implements ApplicationComponent {
     class Listener implements FileEditorManagerListener {
 
         @Override
+        public void fileOpened(@NotNull FileEditorManager source, @NotNull VirtualFile file) {
+            performAdd(file);
+        }
+
+        @Override
         public void selectionChanged(@NotNull FileEditorManagerEvent event) {
+            VirtualFile file = event.getNewFile();
+            if (file == null) return;
+            performAdd(file);
+        }
+
+        private void performAdd(VirtualFile file) {
+            String extension = file.getExtension();
+            if (extension == null || !extension.startsWith("c")) return;
             ActionManager am = ActionManager.getInstance();
             am.getAction("AutoSingleFileExecutionAction").actionPerformed(new AnActionEvent(null, DataManager.getInstance().getDataContext(),
                     ActionPlaces.UNKNOWN, new Presentation(),

@@ -67,6 +67,7 @@ public class SingleFileExecutionAction extends AnAction {
         String exeName = buildExeName(config.getExecutableName());
         String sourceName = fileName;
         String relativeSourcePath = new File(project.getBasePath()).toURI().relativize(new File(sourceFile.getPath()).toURI()).getPath();
+        if (relativeSourcePath.startsWith("/")) return;
 
         /* parse cmakelistDocument to check existence of exe_name */
         /* See http://mmasashi.hatenablog.com/entry/20091129/1259511129 for lazy, greedy search */
@@ -102,9 +103,9 @@ public class SingleFileExecutionAction extends AnAction {
                 break;
             case EXE_EXIST_SAME_SOURCE:
                 // skip setText
-                Notifications.Bus.notify (
-                        new Notification("singlefileexecutionaction", "Single File Execution Plugin", "add_executable for this source already exists.", NotificationType.INFORMATION)
-                );
+//                Notifications.Bus.notify (
+//                        new Notification("singlefileexecutionaction", "Single File Execution Plugin", "add_executable for this source already exists.", NotificationType.INFORMATION)
+//                );
                 break;
             case EXE_EXIST_DIFFERENT_SOURCE:
                 int okFlag;
@@ -209,7 +210,7 @@ public class SingleFileExecutionAction extends AnAction {
         String newExeName;
         /* %FILENAME% replacement */
         newExeName = exeName.replace(SingleFileExecutionConfig.EXECUTABLE_NAME_FILENAME, sourceFile.getNameWithoutExtension());
-        return newExeName;
+        return Utilities.getConfigName(project, sourceFile);
     }
 
     private String buildRuntimeOutputDirectory() {
