@@ -23,4 +23,10 @@ public class Utilities {
         if (ch >= '0' && ch <= '9') return ch;
         return '_';
     }
+
+    public static boolean isAutoEnabled(Project project) {
+        SingleFileExecutionConfig config = SingleFileExecutionConfig.getInstance(project);
+        if (config == null) return false;
+        return config.automaticallySwitch;
+    }
 }

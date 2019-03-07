@@ -19,14 +19,14 @@ public class ActiveTabExecutableComponent implements ApplicationComponent {
 
     @Override
     public void initComponent() {
-        MessageBus bus = ApplicationManager.getApplication().getMessageBus();
-        connection = bus.connect();
-        connection.subscribe(FileEditorManagerListener.FILE_EDITOR_MANAGER, new Listener());
+//        MessageBus bus = ApplicationManager.getApplication().getMessageBus();
+//        connection = bus.connect();
+//        connection.subscribe(FileEditorManagerListener.FILE_EDITOR_MANAGER, new Listener());
     }
 
     @Override
     public void disposeComponent() {
-        connection.disconnect();
+//        connection.disconnect();
     }
 
     class Listener implements FileEditorManagerListener {

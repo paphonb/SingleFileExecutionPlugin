@@ -17,6 +17,8 @@ import com.jetbrains.cidr.cpp.cmake.model.CMakeTarget;
 import com.jetbrains.cidr.cpp.execution.CMakeAppRunConfiguration;
 import org.jetbrains.annotations.NotNull;
 
+import javax.rmi.CORBA.Util;
+
 public class AutoSwitcher implements ProjectComponent {
     private final Project project;
     private boolean busy = false;
@@ -53,7 +55,10 @@ public class AutoSwitcher implements ProjectComponent {
                     }
                     RunManagerImpl runManager = RunManagerImpl.getInstanceImpl(project);
                     RunnerAndConfigurationSettings racs = runManager.findConfigurationByName(Utilities.getConfigName(project, file));
-                    if (racs == null) return;
+                    if (racs == null) {
+                        addToCMakeList(project, file);
+                        return;
+                    }
                     RunConfiguration configuration = racs.getConfiguration();
                     busy = true;
                     RunManager.getInstance(project).setSelectedConfiguration(
@@ -68,6 +73,14 @@ public class AutoSwitcher implements ProjectComponent {
                 };
 
                 DumbService.getInstance(project).smartInvokeLater(selectTaskRunnable);
+            }
+
+            private void addToCMakeList(Project project, VirtualFile file) {
+                String extension = file.getExtension();
+                if (extension == null || !extension.startsWith("c")) return;
+                if (Utilities.isAutoEnabled(project)) {
+                    new CMakeListWriter(project, file);
+                }
             }
 
             @Override
